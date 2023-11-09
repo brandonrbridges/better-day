@@ -12,11 +12,11 @@ import BetterText from '../components/BetterText'
 import Overview from '../components/Overview'
 import SpacedView from '../components/SpacedView'
 import TodaysPrayer from '../components/TodaysPrayer'
+import { useAuthContext } from '../stores/AuthContext'
 
 export default function HomeScreen() {
+	const { state: authState } = useAuthContext()
 	const { state: calState } = useCalendarContext()
-
-	const name = 'Austin'
 
 	return (
 		<ScrollView
@@ -46,7 +46,7 @@ export default function HomeScreen() {
 								fontWeight: '700',
 							}}
 						>
-							Welcome back {name} 👋
+							Welcome back {authState.user.first_name} 👋
 						</BetterText>
 						<BetterText
 							style={{

@@ -5,10 +5,17 @@ const AuthContext = createContext(null)
 
 const initialState = {
 	user: null,
+	access_token: null,
 }
 
 const authReducer = (state, action) => {
 	switch (action.type) {
+		case 'SET_TOKEN': {
+			return {
+				...state,
+				access_token: action.payload,
+			}
+		}
 		case 'LOGIN': {
 			return {
 				...state,
@@ -16,10 +23,7 @@ const authReducer = (state, action) => {
 			}
 		}
 		case 'LOGOUT': {
-			return {
-				...state,
-				user: null,
-			}
+			return initialState
 		}
 		default: {
 			return state

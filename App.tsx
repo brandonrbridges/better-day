@@ -14,12 +14,15 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 
 // Stores
 import Providers from './stores/Provider'
+import { useAuthContext } from './stores/AuthContext'
 import { useCalendarContext } from './stores/CalendarContext'
 
 // Screens
-import HomeScreen from './screens/HomeScreen'
 import CalendarScreen from './screens/CalendarScreen'
+import HomeScreen from './screens/HomeScreen'
+import LoginScreen from './screens/LoginScreen'
 import ProfileScreen from './screens/ProfilePage'
+import RegisterScreen from './screens/RegisterScreen'
 
 // Packages
 import dayjs from 'dayjs'
@@ -27,7 +30,8 @@ import dayjs from 'dayjs'
 const Tab = createBottomTabNavigator()
 
 const AppContent = () => {
-	const { dispatch } = useCalendarContext()
+	const { state: authState } = useAuthContext()
+	const { dispatch: calendarDispatch } = useCalendarContext()
 
 	useEffect(() => {
 		;(async () => {
@@ -49,9 +53,8 @@ const AppContent = () => {
 				)
 
 				console.log('[Better Day] Calendars loaded successfully')
-				console.log({ events })
 
-				dispatch({
+				calendarDispatch({
 					type: 'SET_EVENTS',
 					payload: events,
 				})
@@ -67,45 +70,78 @@ const AppContent = () => {
 						tabBarShowLabel: false,
 					}}
 				>
-					<Tab.Screen
-						name='Home'
-						component={HomeScreen}
-						options={{
-							tabBarIcon: ({ focused }) => (
-								<Icon
-									name='home'
-									size={24}
-									color={focused ? '#59B95C' : '#CFD3CF'}
-								/>
-							),
-						}}
-					/>
-					<Tab.Screen
-						name='Calendar'
-						component={CalendarScreen}
-						options={{
-							tabBarIcon: ({ focused }) => (
-								<Icon
-									name='calendar'
-									size={24}
-									color={focused ? '#59B95C' : '#CFD3CF'}
-								/>
-							),
-						}}
-					/>
-					<Tab.Screen
-						name='Profile'
-						component={ProfileScreen}
-						options={{
-							tabBarIcon: ({ focused }) => (
-								<Icon
-									name='user'
-									size={24}
-									color={focused ? '#59B95C' : '#CFD3CF'}
-								/>
-							),
-						}}
-					/>
+					{!authState.access_token ? (
+						<>
+							<Tab.Screen
+								name='Login'
+								component={LoginScreen}
+								options={{
+									tabBarIcon: ({ focused }) => (
+										<Icon
+											name='key'
+											size={24}
+											color={focused ? '#59B95C' : '#CFD3CF'}
+										/>
+									),
+								}}
+							/>
+							<Tab.Screen
+								name='Register'
+								component={RegisterScreen}
+								options={{
+									tabBarIcon: ({ focused }) => (
+										<Icon
+											name='user-plus'
+											size={24}
+											color={focused ? '#59B95C' : '#CFD3CF'}
+										/>
+									),
+								}}
+							/>
+						</>
+					) : (
+						<>
+							<Tab.Screen
+								name='Home'
+								component={HomeScreen}
+								options={{
+									tabBarIcon: ({ focused }) => (
+										<Icon
+											name='home'
+											size={24}
+											color={focused ? '#59B95C' : '#CFD3CF'}
+										/>
+									),
+								}}
+							/>
+							<Tab.Screen
+								name='Calendar'
+								component={CalendarScreen}
+								options={{
+									tabBarIcon: ({ focused }) => (
+										<Icon
+											name='calendar'
+											size={24}
+											color={focused ? '#59B95C' : '#CFD3CF'}
+										/>
+									),
+								}}
+							/>
+							<Tab.Screen
+								name='Profile'
+								component={ProfileScreen}
+								options={{
+									tabBarIcon: ({ focused }) => (
+										<Icon
+											name='user'
+											size={24}
+											color={focused ? '#59B95C' : '#CFD3CF'}
+										/>
+									),
+								}}
+							/>
+						</>
+					)}
 				</Tab.Navigator>
 				<StatusBar style='auto' />
 			</NavigationContainer>
