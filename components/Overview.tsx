@@ -92,7 +92,7 @@ type EventListProps = {
 }
 
 const EventList: React.FC<EventListProps> = (props) => {
-	const EventItem = ({ style }) => {
+	const EventItem = (props) => {
 		return (
 			<View
 				style={{
@@ -101,7 +101,7 @@ const EventList: React.FC<EventListProps> = (props) => {
 					borderRadius: 10,
 					flexDirection: 'row',
 					padding: 10,
-					...style,
+					...props.style,
 				}}
 			>
 				<View
@@ -140,7 +140,7 @@ const EventList: React.FC<EventListProps> = (props) => {
 							30 minutes
 						</Text>
 					</View>
-					<BetterText>Meet Brian about Partnership</BetterText>
+					<BetterText>{props.title}</BetterText>
 				</View>
 			</View>
 		)
@@ -162,6 +162,7 @@ const EventList: React.FC<EventListProps> = (props) => {
 				return (
 					<EventItem
 						key={index}
+						{...event}
 						style={
 							index !== 0 && {
 								marginTop: 10,

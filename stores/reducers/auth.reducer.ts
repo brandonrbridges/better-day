@@ -11,6 +11,8 @@ export interface User {
 export interface Profile {
 	age?: number
 	religion?: string
+	bible_excerpts?: boolean
+	length_of_message?: number
 }
 
 export interface AuthState {
