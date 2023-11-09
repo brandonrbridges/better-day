@@ -1,9 +1,10 @@
 // React & React Native
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TextInput, View, TouchableOpacity } from 'react-native'
 
-// Stores
-import { useAuthContext } from '../stores/AuthContext'
+// Redux
+import { useAppDispatch } from '../stores/hooks'
+import { setToken, login } from '../stores/reducers/auth.reducer'
 
 // Component
 import BetterText from './BetterText'
@@ -27,12 +28,13 @@ const schema = yup.object().shape({
 })
 
 const LoginForm = () => {
-	const { state: authState, dispatch: authDispatch } = useAuthContext()
+	const dispatch = useAppDispatch()
 
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
+		setValue,
 	} = useForm({
 		resolver: yupResolver(schema),
 		defaultValues: {
@@ -44,24 +46,25 @@ const LoginForm = () => {
 	const [success, setSuccess] = useState(false)
 	const [error, setError] = useState('')
 
+	const insertDefaultValues = () => {
+		setValue('email', 'brandonrbridges@outlook.com')
+		setValue('password', 'IvyLynneBridges22!')
+	}
+
 	const onSubmit = async (data) => {
 		try {
 			const { access_token } = await POST('/auth/login', data)
 
-			const user = await GET('/auth/me', access_token)
+			const { user } = await GET('/auth/me', access_token)
+
+			console.log(user)
 
 			setSuccess(true)
 
-			authDispatch({
-				type: 'LOGIN',
-				payload: user,
-			})
+			dispatch(login(user))
 
 			setTimeout(() => {
-				authDispatch({
-					type: 'SET_TOKEN',
-					payload: access_token,
-				})
+				dispatch(setToken(access_token))
 			}, 1500)
 		} catch (error) {
 			setSuccess(false)
@@ -123,7 +126,7 @@ const LoginForm = () => {
 							borderColor: '#AAA',
 							borderRadius: 10,
 							borderWidth: 1,
-							fontFamily: 'Aleo',
+							// fontFamily: 'Aleo',
 							marginBottom: 10,
 							padding: 10,
 						}}
@@ -163,7 +166,7 @@ const LoginForm = () => {
 							borderColor: '#AAA',
 							borderRadius: 10,
 							borderWidth: 1,
-							fontFamily: 'Aleo',
+							// fontFamily: 'Aleo',
 							marginBottom: 10,
 							padding: 10,
 						}}
@@ -206,6 +209,27 @@ const LoginForm = () => {
 						}}
 					>
 						Login
+					</BetterText>
+				</View>
+			</TouchableOpacity>
+
+			<TouchableOpacity onPress={insertDefaultValues}>
+				<View
+					style={{
+						backgroundColor: '#000',
+						borderRadius: 10,
+						marginTop: 10,
+						padding: 10,
+					}}
+				>
+					<BetterText
+						style={{
+							color: '#FFF',
+							fontSize: 16,
+							textAlign: 'center',
+						}}
+					>
+						Insert Default Values
 					</BetterText>
 				</View>
 			</TouchableOpacity>

@@ -12,10 +12,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-// Stores
-import Providers from './stores/Provider'
-import { useAuthContext } from './stores/AuthContext'
-import { useCalendarContext } from './stores/CalendarContext'
+// Redux
+import { Provider } from 'react-redux'
+import { persistor, store } from './stores/configureStore'
+import { PersistGate } from 'redux-persist/integration/react'
+import { useAppSelector, useAppDispatch } from './stores/hooks'
 
 // Screens
 import CalendarScreen from './screens/CalendarScreen'
@@ -26,12 +27,13 @@ import RegisterScreen from './screens/RegisterScreen'
 
 // Packages
 import dayjs from 'dayjs'
+import { setEvents } from './stores/reducers/calendar.reducer'
 
 const Tab = createBottomTabNavigator()
 
 const AppContent = () => {
-	const { state: authState } = useAuthContext()
-	const { dispatch: calendarDispatch } = useCalendarContext()
+	const auth = useAppSelector(({ auth }) => auth)
+	const dispatch = useAppDispatch()
 
 	useEffect(() => {
 		;(async () => {
@@ -54,10 +56,7 @@ const AppContent = () => {
 
 				console.log('[Better Day] Calendars loaded successfully')
 
-				calendarDispatch({
-					type: 'SET_EVENTS',
-					payload: events,
-				})
+				dispatch(setEvents(events))
 			}
 		})()
 	}, [])
@@ -70,7 +69,7 @@ const AppContent = () => {
 						tabBarShowLabel: false,
 					}}
 				>
-					{!authState.access_token ? (
+					{!auth.access_token ? (
 						<>
 							<Tab.Screen
 								name='Login'
@@ -151,8 +150,10 @@ const AppContent = () => {
 
 export default function App() {
 	return (
-		<Providers>
-			<AppContent />
-		</Providers>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<AppContent />
+			</PersistGate>
+		</Provider>
 	)
 }

@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-// Stores
-import { useCalendarContext } from '../stores/CalendarContext'
+// Redux
+import { useAppSelector } from '../stores/hooks'
 
 // Components
 import AudioControls from '../components/AudioControls'
@@ -12,11 +12,10 @@ import BetterText from '../components/BetterText'
 import Overview from '../components/Overview'
 import SpacedView from '../components/SpacedView'
 import TodaysPrayer from '../components/TodaysPrayer'
-import { useAuthContext } from '../stores/AuthContext'
 
 export default function HomeScreen() {
-	const { state: authState } = useAuthContext()
-	const { state: calState } = useCalendarContext()
+	const auth = useAppSelector(({ auth }) => auth)
+	const calendar = useAppSelector(({ calendar }) => calendar)
 
 	return (
 		<ScrollView
@@ -46,7 +45,7 @@ export default function HomeScreen() {
 								fontWeight: '700',
 							}}
 						>
-							Welcome back {authState.user.first_name} 👋
+							Welcome back {auth.user.first_name} 👋
 						</BetterText>
 						<BetterText
 							style={{

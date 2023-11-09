@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
-// Stores
-import { useCalendarContext } from '../stores/CalendarContext'
+// Redux
+import { useAppSelector } from '../stores/hooks'
 
 type CalendarEvent = {
 	startDate: Date
@@ -19,7 +19,7 @@ type CalendarProps = {
 }
 
 const Calendar: React.FC<CalendarProps> = (props) => {
-	const { state: calState } = useCalendarContext()
+	const calendar = useAppSelector(({ calendar }) => calendar)
 
 	const [selectedDate, setSelectedDate] = useState(new Date())
 
@@ -54,7 +54,7 @@ const Calendar: React.FC<CalendarProps> = (props) => {
 	const daysInMonth = lastDayOfMonth.getDate()
 
 	for (let i = 0; i < firstDayOfMonth.getDay(); i++) {
-		dayCells.push(<View key={i} style={styles.dayCell} />)
+		dayCells.push(<View key={'empty-' + i} style={styles.dayCell} />)
 	}
 
 	for (let i = 1; i <= daysInMonth; i++) {
@@ -76,11 +76,8 @@ const Calendar: React.FC<CalendarProps> = (props) => {
 		})
 
 		dayCells.push(
-			<View style={styles.dayCell}>
-				<TouchableOpacity
-					key={Math.random()}
-					onPress={() => handleDateChange(currentDate)}
-				>
+			<View key={currentDate.toDateString()} style={styles.dayCell}>
+				<TouchableOpacity onPress={() => handleDateChange(currentDate)}>
 					<View
 						style={[
 							isToday ? styles.todayCell : null,

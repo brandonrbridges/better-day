@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { TextInput, View, TouchableOpacity } from 'react-native'
 
-// Component
+// Components
 import BetterText from './BetterText'
 
 // React Hook Form
@@ -108,7 +108,7 @@ const RegisterForm = () => {
 							borderColor: '#AAA',
 							borderRadius: 10,
 							borderWidth: 1,
-							fontFamily: 'Aleo',
+							// fontFamily: 'Aleo',
 							marginBottom: 10,
 							padding: 10,
 						}}
@@ -148,7 +148,7 @@ const RegisterForm = () => {
 							borderColor: '#AAA',
 							borderRadius: 10,
 							borderWidth: 1,
-							fontFamily: 'Aleo',
+							// fontFamily: 'Aleo',
 							marginBottom: 10,
 							padding: 10,
 						}}
@@ -186,7 +186,7 @@ const RegisterForm = () => {
 							borderColor: '#AAA',
 							borderRadius: 10,
 							borderWidth: 1,
-							fontFamily: 'Aleo',
+							// fontFamily: 'Aleo',
 							marginBottom: 10,
 							padding: 10,
 						}}
@@ -224,7 +224,7 @@ const RegisterForm = () => {
 							borderColor: '#AAA',
 							borderRadius: 10,
 							borderWidth: 1,
-							fontFamily: 'Aleo',
+							// fontFamily: 'Aleo',
 							marginBottom: 10,
 							padding: 10,
 						}}

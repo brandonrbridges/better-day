@@ -2,10 +2,28 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
+// Redux
+import { useAppSelector } from '../stores/hooks'
+
 // Components
 import BetterText from './BetterText'
 
+// Packages
+import dayjs from 'dayjs'
+
 const Overview = () => {
+	const events = useAppSelector(({ calendar }) => calendar.events)
+
+	const todaysEvents = events.filter((event) => {
+		const today = dayjs()
+
+		const eventDate = dayjs(event.startDate)
+
+		if (today.isSame(eventDate, 'day')) {
+			return true
+		}
+	})
+
 	return (
 		<View
 			style={{
@@ -15,7 +33,7 @@ const Overview = () => {
 			}}
 		>
 			<OverviewHeader />
-			<EventList />
+			<EventList events={todaysEvents} />
 		</View>
 	)
 }
@@ -69,19 +87,11 @@ const OverviewHeader = () => {
 	)
 }
 
-const EventList = () => {
-	const events = [
-		{
-			title: 'Meet Brian about Partnership',
-		},
-		{
-			title: 'Meet Brian about Partnership',
-		},
-		{
-			title: 'Meet Brian about Partnership',
-		},
-	]
+type EventListProps = {
+	events: any[]
+}
 
+const EventList: React.FC<EventListProps> = (props) => {
 	const EventItem = ({ style }) => {
 		return (
 			<View
@@ -136,6 +146,10 @@ const EventList = () => {
 		)
 	}
 
+	if (props.events.length === 0) {
+		return <BetterText>You have no events today. Enjoy your day!</BetterText>
+	}
+
 	return (
 		<View
 			style={{
@@ -144,7 +158,7 @@ const EventList = () => {
 				padding: 10,
 			}}
 		>
-			{events.map((event, index) => {
+			{props.events.map((event, index) => {
 				return (
 					<EventItem
 						key={index}

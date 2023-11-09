@@ -3,16 +3,19 @@ import { View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 // Stores
-import { useAuthContext } from '../stores/AuthContext'
+import { useAppDispatch, useAppSelector } from '../stores/hooks'
+import { logout } from '../stores/reducers/auth.reducer'
 
 // Components
 import BetterText from '../components/BetterText'
 import SpacedView from '../components/SpacedView'
+import ProfileForm from '../components/ProfileForm'
 
 export default function ProfileScreen() {
-	const { state: authState, dispatch: authDispatch } = useAuthContext()
+	const auth = useAppSelector(({ auth }) => auth)
+	const dispatch = useAppDispatch()
 
-	const handleLogout = () => authDispatch({ type: 'LOGOUT' })
+	const handleLogout = () => dispatch(logout())
 
 	return (
 		<SpacedView
@@ -47,7 +50,7 @@ export default function ProfileScreen() {
 							fontSize: 16,
 						}}
 					>
-						{authState.user.first_name} {authState.user.last_name}
+						{auth.user.first_name} {auth.user.last_name}
 					</BetterText>
 					<View
 						style={{
@@ -94,7 +97,9 @@ export default function ProfileScreen() {
 					padding: 10,
 				}}
 			>
-				<BetterText>Preferences</BetterText>
+				<BetterText style={{ marginBottom: 10 }}>Preferences</BetterText>
+
+				<ProfileForm />
 			</View>
 		</SpacedView>
 	)

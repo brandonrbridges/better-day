@@ -1,55 +1,56 @@
 {
-  "expo": {
-    "name": "better-day",
-    "slug": "better-day",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "infoPlist": {
-        "NSCalendarsUsageDescription": "This app requires calendar access.",
-        "NSRemindersUsageDescription": "Allow $(PRODUCT_NAME) to access your reminders",
-        "NSCalendarsFullAccessUsageDescription": "This app requires calendar access.",
-        "NSRemindersFullAccessUsageDescription": "Allow $(PRODUCT_NAME) to access your reminders"
-      },
-      "bundleIdentifier": "com.brandonrbridges.betterday"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "permissions": [
-        "android.permission.READ_CALENDAR",
-        "android.permission.WRITE_CALENDAR"
-      ],
-      "package": "com.brandonrbridges.betterday"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-calendar",
-        {
-          "calendarPermission": "This app requires calendar access."
-        }
-      ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "48d6bf1c-ccd3-4a47-85e7-706b2b0468e3"
-      }
-    }
-  }
+	"expo": {
+		"name": "better-day",
+		"slug": "better-day",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"userInterfaceStyle": "light",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"infoPlist": {
+				"NSCalendarsUsageDescription": "This app requires calendar access.",
+				"NSRemindersUsageDescription": "Allow $(PRODUCT_NAME) to access your reminders",
+				"NSCalendarsFullAccessUsageDescription": "This app requires calendar access.",
+				"NSRemindersFullAccessUsageDescription": "Allow $(PRODUCT_NAME) to access your reminders"
+			},
+			"bundleIdentifier": "com.brandonrbridges.betterday",
+			"config": {
+				"usesNonExemptEncryption": false
+			}
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"permissions": [
+				"android.permission.READ_CALENDAR",
+				"android.permission.WRITE_CALENDAR"
+			],
+			"package": "com.brandonrbridges.betterday"
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		},
+		"plugins": [
+			[
+				"expo-calendar",
+				{
+					"calendarPermission": "This app requires calendar access."
+				}
+			]
+		],
+		"extra": {
+			"eas": {
+				"projectId": "48d6bf1c-ccd3-4a47-85e7-706b2b0468e3"
+			}
+		}
+	}
 }

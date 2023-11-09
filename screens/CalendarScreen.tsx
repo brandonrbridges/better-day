@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-// Stores
-import { useCalendarContext } from '../stores/CalendarContext'
+// Redux
 
 // Components
 import BetterText from '../components/BetterText'
@@ -14,16 +13,17 @@ import TodaysPrayer from '../components/TodaysPrayer'
 
 // Packages
 import dayjs from 'dayjs'
+import { useAppSelector } from '../stores/hooks'
 
 export default function CalendarScreen() {
-	const { state, dispatch } = useCalendarContext()
+	const calendar = useAppSelector(({ calendar }) => calendar)
 
 	const [selectedDate, setSelectedDate] = useState(new Date())
 	const [displayedEvents, setDisplayedEvents] = useState([])
 
 	const handleDateChange = (date) => setSelectedDate(date)
 
-	const events = state.events.map((event) => ({
+	const events = calendar.events.map((event) => ({
 		startDate: dayjs(event.startDate).toDate(),
 		endDate: dayjs(event.endDate).toDate(),
 		title: event.title,
@@ -31,7 +31,7 @@ export default function CalendarScreen() {
 	}))
 
 	useEffect(() => {
-		const events = state.events.filter((event) => {
+		const events = calendar.events.filter((event) => {
 			const eventStartDate = dayjs(event.startDate)
 			const eventEndDate = dayjs(event.endDate)
 

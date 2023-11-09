@@ -1,15 +1,27 @@
 // React & React Native
+import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 // Components
 import BetterText, { BetterTextTyping } from './BetterText'
 
-// Packages
-import TypingText from 'react-native-typing-text'
-
 const TodaysPrayer = () => {
-	const prayer =
-		'As I prepare to meet with my boss, I come before You seeking peace and strength. Grant me the serenity to express myself with clarity and the wisdom to listen with an open heart. May Your grace guide our conversation, fostering understanding, mutual respect, and constructive outcomes. Help me to embody the fruits of Your Spirit, showing love, patience, kindness, and self-control. Let my words reflect the respect I have for my position and the work I am entrusted to do. Bless this meeting, O Lord, that it may be productive and honor You in all ways.'
+	const [loading, setLoading] = useState(true)
+	const [prayer, setPrayer] = useState('')
+
+	// useEffect(() => {
+	// 	console.log('Generating prayer...')
+
+	// 	GET('/ai/prayer').then(({ message }) => {
+	// 		console.log('Prayer generated successfully')
+
+	// 		console.log(message)
+
+	// 		setPrayer(message)
+
+	// 		setLoading(false)
+	// 	})
+	// }, [])
 
 	return (
 		<View
@@ -39,7 +51,11 @@ const TodaysPrayer = () => {
 					marginTop: 10,
 				}}
 			>
-				<BetterText>{prayer}</BetterText>
+				{loading ? (
+					<BetterText>Generating prayer...</BetterText>
+				) : (
+					<BetterText>{prayer}</BetterText>
+				)}
 			</BetterText>
 		</View>
 	)

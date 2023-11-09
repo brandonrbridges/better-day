@@ -63,3 +63,12 @@ export const POST = (
 ) => {
 	return wrapper(url, 'POST', body, access_token, headers)
 }
+
+export const PATCH = (
+	url: string,
+	body: any,
+	access_token?: string,
+	headers?: HeadersInit
+) => {
+	return wrapper(url, 'PATCH', body, access_token, headers)
+}
