@@ -2,26 +2,61 @@
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 
+// Redux
+import { useAppDispatch, useAppSelector } from '../stores/hooks'
+import { setAudio, setMessage } from '../stores/reducers/message.reducer'
+
 // Components
-import BetterText, { BetterTextTyping } from './BetterText'
+import BetterText from './BetterText'
+
+// Fetch
+import { POST } from '../utils/fetch'
+
+// Packages
+import dayjs from 'dayjs'
 
 const TodaysPrayer = () => {
-	const [loading, setLoading] = useState(true)
-	const [prayer, setPrayer] = useState('')
+	const auth = useAppSelector(({ auth }) => auth)
+	const calendar = useAppSelector(({ calendar }) => calendar)
+	const message = useAppSelector(({ message }) => message)
 
-	// useEffect(() => {
-	// 	console.log('Generating prayer...')
+	const dispatch = useAppDispatch()
 
-	// 	GET('/ai/prayer').then(({ message }) => {
-	// 		console.log('Prayer generated successfully')
+	const [loading, setLoading] = useState(false)
 
-	// 		console.log(message)
+	const getPrayer = async () => {
+		const events = calendar.events.filter((event) => {
+			const today = dayjs()
+			const eventDate = dayjs(event.startDate)
 
-	// 		setPrayer(message)
+			if (today.isSame(eventDate, 'day')) {
+				return true
+			}
+		})
 
-	// 		setLoading(false)
-	// 	})
-	// }, [])
+		try {
+			setLoading(true)
+
+			const response = await POST('/ai/prayer', {
+				id: auth.user.id,
+				events: events,
+			})
+
+			dispatch(setMessage(response.content))
+		} catch (error) {
+			console.error(error)
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	useEffect(() => {
+		if (message.content) {
+			return
+		}
+
+		getPrayer()
+	}, [])
 
 	return (
 		<View
@@ -36,7 +71,8 @@ const TodaysPrayer = () => {
 					fontSize: 16,
 				}}
 			>
-				Today's Prayer
+				Today's{' '}
+				{auth.user.profile.religion === 'Atheist' ? 'Thought' : 'Prayer'}
 			</BetterText>
 			<BetterText
 				style={{
@@ -44,7 +80,8 @@ const TodaysPrayer = () => {
 					marginTop: 4,
 				}}
 			>
-				Prayer for the day
+				{auth.user.profile.religion === 'Atheist' ? 'Thought' : 'Prayer'} for
+				the day
 			</BetterText>
 			<BetterText
 				style={{
@@ -54,7 +91,7 @@ const TodaysPrayer = () => {
 				{loading ? (
 					<BetterText>Generating prayer...</BetterText>
 				) : (
-					<BetterText>{prayer}</BetterText>
+					<BetterText>{message.content}</BetterText>
 				)}
 			</BetterText>
 		</View>
