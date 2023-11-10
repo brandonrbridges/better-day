@@ -51,10 +51,7 @@ export default function CalendarScreen() {
 		>
 			<SpacedView
 				style={{
-					paddingTop: 10,
-					paddingRight: 20,
-					paddingBottom: 10,
-					paddingLeft: 20,
+					padding: 20,
 				}}
 			>
 				<Calendar events={events} onDateChange={handleDateChange} />

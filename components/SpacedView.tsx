@@ -1,9 +1,9 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, ViewStyle } from 'react-native'
 
 type SpacedViewProps = {
 	children: React.ReactNode
-	style?: any
+	style?: ViewStyle
 }
 
 const SpacedView: React.FC<SpacedViewProps> = (props) => {
