@@ -1,12 +1,13 @@
+// React & React Native
 import { View } from 'react-native'
 
-// Components
-import BetterText from './BetterText'
-
-// Packages
+// React Native Packages
 import { useSharedValue } from 'react-native-reanimated'
 import { Slider } from 'react-native-awesome-slider'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+
+// Components
+import BetterText from './BetterText'
 
 const AudioControls = () => {
 	const progress = useSharedValue(0)

@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 // Redux
-import { useAppDispatch, useAppSelector } from '../stores/hooks'
-import { setAudio, setMessage } from '../stores/reducers/message.reducer'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { setMessage } from '@/redux/reducers/message.reducer'
 
 // Components
 import BetterText from './BetterText'
 
 // Fetch
-import { POST } from '../utils/fetch'
+import { POST } from '@/utils/fetch'
 
 // Packages
 import dayjs from 'dayjs'
@@ -24,7 +24,7 @@ const TodaysPrayer = () => {
 
 	const [loading, setLoading] = useState(false)
 
-	const getPrayer = async () => {
+	const getMessage = async () => {
 		const events = calendar.events.filter((event) => {
 			const today = dayjs()
 			const eventDate = dayjs(event.startDate)
@@ -55,7 +55,7 @@ const TodaysPrayer = () => {
 			return
 		}
 
-		getPrayer()
+		getMessage()
 	}, [])
 
 	return (

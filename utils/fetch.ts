@@ -1,8 +1,8 @@
 // @ts-nocheck: ENV
 import { API_URL } from '@env'
 
-// Stores
-import { useAuthContext } from '../stores/AuthContext'
+// Redux
+import { store } from '@/redux/configureStore'
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 
@@ -10,12 +10,13 @@ const wrapper = async (
 	url: string,
 	method: Method,
 	body?: any,
-	access_token?: string,
 	headers?: HeadersInit
 ) => {
 	const defaultHeaders = {
 		'Content-Type': 'application/json',
 	}
+
+	const { access_token } = store.getState().auth
 
 	if (access_token) {
 		defaultHeaders['Authorization'] = `Bearer ${access_token}`
@@ -47,28 +48,14 @@ const wrapper = async (
 	}
 }
 
-export const GET = async (
-	url: string,
-	access_token?: string,
-	headers?: HeadersInit
-) => {
-	return wrapper(url, 'GET', null, access_token, headers)
+export const GET = async (url: string, headers?: HeadersInit) => {
+	return wrapper(url, 'GET', null, headers)
 }
 
-export const POST = (
-	url: string,
-	body: any,
-	access_token?: string,
-	headers?: HeadersInit
-) => {
-	return wrapper(url, 'POST', body, access_token, headers)
+export const POST = (url: string, body: any, headers?: HeadersInit) => {
+	return wrapper(url, 'POST', body, headers)
 }
 
-export const PATCH = (
-	url: string,
-	body: any,
-	access_token?: string,
-	headers?: HeadersInit
-) => {
-	return wrapper(url, 'PATCH', body, access_token, headers)
+export const PATCH = (url: string, body: any, headers?: HeadersInit) => {
+	return wrapper(url, 'PATCH', body, headers)
 }

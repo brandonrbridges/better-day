@@ -2,9 +2,9 @@
 import { View } from 'react-native'
 
 // Components
-import BetterText from '../components/BetterText'
-import LoginForm from '../components/LoginForm'
-import SpacedView from '../components/SpacedView'
+import BetterText from '@/components/BetterText'
+import LoginForm from '@/components/LoginForm'
+import SpacedView from '@/components/SpacedView'
 
 export default function LoginScreen() {
 	return (

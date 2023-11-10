@@ -9,7 +9,7 @@ import BetterText from './BetterText'
 import { useForm, Controller } from 'react-hook-form'
 
 // Fetch
-import { POST } from '../utils/fetch'
+import { POST } from '@/utils/fetch'
 
 // Packages
 import * as yup from 'yup'

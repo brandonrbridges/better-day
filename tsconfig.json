@@ -1,4 +1,14 @@
 {
-	"compilerOptions": {},
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/components/*": ["components/*"],
+			"@/redux/*": ["redux/*"],
+			"@/stores/*": ["redux/*"],
+			"@/types/*": ["types/*"],
+			"@/utils/*": ["utils/*"]
+		}
+	},
+	"exclude": ["node_modules"],
 	"extends": "expo/tsconfig.base"
 }

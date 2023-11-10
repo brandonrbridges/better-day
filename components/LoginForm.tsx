@@ -1,10 +1,10 @@
 // React & React Native
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { TextInput, View, TouchableOpacity } from 'react-native'
 
 // Redux
-import { useAppDispatch } from '../stores/hooks'
-import { setToken, login } from '../stores/reducers/auth.reducer'
+import { useAppDispatch } from '@/redux/hooks'
+import { setToken, login } from '@/redux/reducers/auth.reducer'
 
 // Component
 import BetterText from './BetterText'
@@ -13,7 +13,7 @@ import BetterText from './BetterText'
 import { useForm, Controller } from 'react-hook-form'
 
 // Fetch
-import { GET, POST } from '../utils/fetch'
+import { GET, POST } from '@/utils/fetch'
 
 // Packages
 import * as yup from 'yup'
@@ -55,17 +55,13 @@ const LoginForm = () => {
 		try {
 			const { access_token } = await POST('/auth/login', data)
 
-			const { user } = await GET('/auth/me', access_token)
-
-			console.log(user)
-
 			setSuccess(true)
 
-			dispatch(login(user))
+			dispatch(setToken(access_token))
 
-			setTimeout(() => {
-				dispatch(setToken(access_token))
-			}, 1500)
+			const { user } = await GET('/auth/me')
+
+			dispatch(login(user))
 		} catch (error) {
 			setSuccess(false)
 			setError(error.message)

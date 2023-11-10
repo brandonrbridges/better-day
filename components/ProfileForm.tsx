@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 
 // Redux
-import { useAppDispatch, useAppSelector } from '../stores/hooks'
-import { updateProfile } from '../stores/reducers/auth.reducer'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { updateProfile } from '@/redux/reducers/auth.reducer'
 
 // Components
 import BetterText from './BetterText'
@@ -13,7 +13,7 @@ import BetterText from './BetterText'
 import { Controller, useForm } from 'react-hook-form'
 
 // Fetch
-import { PATCH } from '../utils/fetch'
+import { PATCH } from '@/utils/fetch'
 
 // Packages
 import * as yup from 'yup'

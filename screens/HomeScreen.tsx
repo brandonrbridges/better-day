@@ -1,17 +1,19 @@
 // React & React Native
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View } from 'react-native'
+
+// React Native Packages
 import { ScrollView } from 'react-native-gesture-handler'
 
 // Redux
-import { useAppSelector } from '../stores/hooks'
+import { useAppSelector } from '@/redux/hooks'
 
 // Components
-import AudioControls from '../components/AudioControls'
-import BetterText from '../components/BetterText'
-import Overview from '../components/Overview'
-import SpacedView from '../components/SpacedView'
-import TodaysPrayer from '../components/TodaysPrayer'
+import AudioControls from '@/components/AudioControls'
+import BetterText from '@/components/BetterText'
+import Overview from '@/components/Overview'
+import SpacedView from '@/components/SpacedView'
+import TodaysPrayer from '@/components/TodaysPrayer'
 
 export default function HomeScreen() {
 	const auth = useAppSelector(({ auth }) => auth)

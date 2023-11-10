@@ -14,9 +14,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 
 // Redux
 import { Provider } from 'react-redux'
-import { persistor, store } from './stores/configureStore'
+import { persistor, store } from './redux/configureStore'
 import { PersistGate } from 'redux-persist/integration/react'
-import { useAppSelector, useAppDispatch } from './stores/hooks'
+import { useAppSelector, useAppDispatch } from './redux/hooks'
 
 // Screens
 import CalendarScreen from './screens/CalendarScreen'
@@ -27,7 +27,8 @@ import RegisterScreen from './screens/RegisterScreen'
 
 // Packages
 import dayjs from 'dayjs'
-import { setEvents } from './stores/reducers/calendar.reducer'
+import { setEvents } from './redux/reducers/calendar.reducer'
+import BetterText from './components/BetterText'
 
 const Tab = createBottomTabNavigator()
 
@@ -54,8 +55,6 @@ const AppContent = () => {
 					endDate
 				)
 
-				console.log('[Better Day] Calendars loaded successfully')
-
 				dispatch(setEvents(events))
 			}
 		})()
@@ -69,7 +68,7 @@ const AppContent = () => {
 						tabBarShowLabel: false,
 					}}
 				>
-					{!auth.access_token ? (
+					{!auth.user ? (
 						<>
 							<Tab.Screen
 								name='Login'

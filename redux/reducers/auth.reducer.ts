@@ -1,19 +1,8 @@
+// Redux
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface User {
-	id: string
-	email: string
-	first_name: string
-	last_name: string
-	profile: Profile
-}
-
-export interface Profile {
-	age?: number
-	religion?: string
-	bible_excerpts?: boolean
-	length_of_message?: number
-}
+// Types
+import { User } from '@/types/User.types'
 
 export interface AuthState {
 	user: User | null

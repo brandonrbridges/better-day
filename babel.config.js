@@ -15,6 +15,19 @@ module.exports = function (api) {
 					verbose: false,
 				},
 			],
+			[
+				'module-resolver',
+				{
+					root: ['./'],
+					alias: {
+						'@/components': './components',
+						'@/redux': './redux',
+						'@/screens': './screens',
+						'@/types': './types',
+						'@/utils': './utils',
+					},
+				},
+			],
 		],
 	}
 }

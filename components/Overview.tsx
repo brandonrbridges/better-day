@@ -3,7 +3,7 @@ import React from 'react'
 import { Text, View } from 'react-native'
 
 // Redux
-import { useAppSelector } from '../stores/hooks'
+import { useAppSelector } from '@/redux/hooks'
 
 // Components
 import BetterText from './BetterText'

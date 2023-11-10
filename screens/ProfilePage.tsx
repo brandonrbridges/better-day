@@ -3,8 +3,8 @@ import { View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 // Stores
-import { useAppDispatch, useAppSelector } from '../stores/hooks'
-import { logout } from '../stores/reducers/auth.reducer'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { logout } from '../redux/reducers/auth.reducer'
 
 // Components
 import BetterText from '../components/BetterText'

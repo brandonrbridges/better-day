@@ -1,19 +1,21 @@
 // React & React Native
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
+
+// React Native Packages
 import { ScrollView } from 'react-native-gesture-handler'
 
 // Redux
+import { useAppSelector } from '@/redux/hooks'
 
 // Components
-import BetterText from '../components/BetterText'
-import Calendar from '../components/Calendar'
-import SpacedView from '../components/SpacedView'
-import TodaysPrayer from '../components/TodaysPrayer'
+import BetterText from '@/components/BetterText'
+import Calendar from '@/components/Calendar'
+import SpacedView from '@/components/SpacedView'
+import TodaysPrayer from '@/components/TodaysPrayer'
 
 // Packages
 import dayjs from 'dayjs'
-import { useAppSelector } from '../stores/hooks'
 
 export default function CalendarScreen() {
 	const calendar = useAppSelector(({ calendar }) => calendar)

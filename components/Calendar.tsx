@@ -1,10 +1,9 @@
 // React & React Native
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import React, { useState } from 'react'
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
 
 // Redux
-import { useAppSelector } from '../stores/hooks'
+import { useAppSelector } from '@/redux/hooks'
 
 type CalendarEvent = {
 	startDate: Date

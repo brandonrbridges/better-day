@@ -2,9 +2,9 @@
 import { View } from 'react-native'
 
 // Components
-import BetterText from '../components/BetterText'
-import RegisterForm from '../components/RegisterForm'
-import SpacedView from '../components/SpacedView'
+import BetterText from '@/components/BetterText'
+import RegisterForm from '@/components/RegisterForm'
+import SpacedView from '@/components/SpacedView'
 
 export default function RegisterScreen() {
 	return (
