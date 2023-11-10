@@ -1,3 +1,6 @@
+// Types
+import { UserReligion } from '@/types/User.types'
+
 // React & React Native
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
@@ -71,8 +74,9 @@ const TodaysPrayer = () => {
 					fontSize: 16,
 				}}
 			>
-				Today's{' '}
-				{auth.user.profile.religion === 'Atheist' ? 'Thought' : 'Prayer'}
+				{auth.user.profile.religion === UserReligion.Atheist
+					? "Today's Thought"
+					: "Today's Prayer"}
 			</BetterText>
 			<BetterText
 				style={{
@@ -80,8 +84,9 @@ const TodaysPrayer = () => {
 					marginTop: 4,
 				}}
 			>
-				{auth.user.profile.religion === 'Atheist' ? 'Thought' : 'Prayer'} for
-				the day
+				{auth.user.profile.religion === UserReligion.Atheist
+					? 'Thought of the Day'
+					: 'Prayer of the Day'}
 			</BetterText>
 			<BetterText
 				style={{
@@ -89,7 +94,11 @@ const TodaysPrayer = () => {
 				}}
 			>
 				{loading ? (
-					<BetterText>Generating prayer...</BetterText>
+					<BetterText>
+						{auth.user.profile.religion === UserReligion.Atheist
+							? 'Generating thought...'
+							: 'Generating prayer...'}
+					</BetterText>
 				) : (
 					<BetterText>{message.content}</BetterText>
 				)}
