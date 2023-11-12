@@ -1,12 +1,12 @@
 // React & React Native
-import { TouchableOpacity, View } from 'react-native'
+import { Text, View } from 'react-native'
 
 // Components
 import BetterText from '@/components/BetterText'
-import RegisterForm from '@/components/RegisterForm'
+import ForgotPasswordForm from '@/components/ForgotPasswordForm'
 import SpacedView from '@/components/SpacedView'
 
-export default function RegisterScreen({ navigation }) {
+export default function ForgotPasswordScreen({ navigation }) {
 	return (
 		<View>
 			<SpacedView
@@ -37,7 +37,7 @@ export default function RegisterScreen({ navigation }) {
 						textAlign: 'center',
 					}}
 				>
-					Register for an account
+					Forgotten your Password?
 				</BetterText>
 				<View
 					style={{
@@ -46,19 +46,8 @@ export default function RegisterScreen({ navigation }) {
 						padding: 20,
 					}}
 				>
-					<RegisterForm />
+					<ForgotPasswordForm navigation={navigation} />
 				</View>
-
-				<TouchableOpacity onPress={() => navigation.navigate('Login')}>
-					<BetterText
-						style={{
-							fontSize: 16,
-							textAlign: 'center',
-						}}
-					>
-						Already have an account? Login
-					</BetterText>
-				</TouchableOpacity>
 			</SpacedView>
 		</View>
 	)

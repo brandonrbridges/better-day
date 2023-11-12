@@ -7,7 +7,10 @@ import * as Calendar from 'expo-calendar'
 import { StatusBar } from 'expo-status-bar'
 
 // Native Navigation
-import { NavigationContainer } from '@react-navigation/native'
+import {
+	NavigationContainer,
+	getFocusedRouteNameFromRoute,
+} from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/FontAwesome5'
@@ -21,6 +24,7 @@ import { setEvents } from './redux/reducers/calendar.reducer'
 
 // Screens
 import CalendarScreen from './screens/CalendarScreen'
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen'
 import HomeScreen from './screens/HomeScreen'
 import LoginScreen from './screens/LoginScreen'
 import ProfileScreen from './screens/ProfilePage'
@@ -31,12 +35,23 @@ import { GET } from './utils/fetch'
 
 // Packages
 import dayjs from 'dayjs'
+import AuthStackNavigator from './navigators/AuthStackNavigator'
 
 const Tab = createBottomTabNavigator()
 
 const AppContent = () => {
 	const auth = useAppSelector(({ auth }) => auth)
 	const dispatch = useAppDispatch()
+
+	const getTabBarVisiblility = (route) => {
+		const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
+
+		const hideOnScreens = ['Login', 'Register', 'ForgotPassword']
+
+		if (hideOnScreens.includes(routeName)) return false
+
+		return true
+	}
 
 	useEffect(() => {
 		;(async () => {
@@ -85,29 +100,13 @@ const AppContent = () => {
 					{!auth.user ? (
 						<>
 							<Tab.Screen
-								name='Login'
-								component={LoginScreen}
+								name='Auth'
+								component={AuthStackNavigator}
 								options={{
-									tabBarIcon: ({ focused }) => (
-										<Icon
-											name='key'
-											size={24}
-											color={focused ? '#59B95C' : '#CFD3CF'}
-										/>
-									),
-								}}
-							/>
-							<Tab.Screen
-								name='Register'
-								component={RegisterScreen}
-								options={{
-									tabBarIcon: ({ focused }) => (
-										<Icon
-											name='user-plus'
-											size={24}
-											color={focused ? '#59B95C' : '#CFD3CF'}
-										/>
-									),
+									headerShown: false,
+									tabBarStyle: {
+										display: 'none',
+									},
 								}}
 							/>
 						</>
