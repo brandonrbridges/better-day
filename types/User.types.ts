@@ -11,7 +11,6 @@ export type User = {
 }
 
 export type Profile = {
-	age?: number
 	religion?: UserReligion
 	bible_excerpts?: boolean
 	length_of_message?: number

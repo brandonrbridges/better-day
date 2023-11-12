@@ -20,7 +20,6 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 const schema = yup.object().shape({
-	age: yup.string(),
 	bible_excerpts: yup.boolean(),
 	length_of_message: yup.number(),
 })
@@ -39,7 +38,6 @@ const ProfileForm = () => {
 	} = useForm({
 		resolver: yupResolver(schema),
 		defaultValues: {
-			age: null,
 			bible_excerpts: true,
 			length_of_message: 1,
 		},
@@ -53,10 +51,10 @@ const ProfileForm = () => {
 
 	const onSubmit = async (data) => {
 		try {
-			const response = await PATCH(`/users/${auth.user.id}/update-profile`, {
-				...data,
-				age: parseInt(data.age),
-			})
+			const response = await PATCH(
+				`/users/${auth.user.id}/update-profile`,
+				data
+			)
 
 			dispatch(updateProfile(response))
 
@@ -68,7 +66,6 @@ const ProfileForm = () => {
 	}
 
 	useEffect(() => {
-		setValue('age', auth.user.profile.age?.toString())
 		setValue('bible_excerpts', auth.user.profile.bible_excerpts)
 	}, [auth])
 
@@ -102,45 +99,6 @@ const ProfileForm = () => {
 						}}
 					>
 						Error: {error}
-					</BetterText>
-				</View>
-			)}
-
-			<BetterText style={{ marginBottom: 4 }}>Age</BetterText>
-			<Controller
-				control={control}
-				name='age'
-				render={({ field: { onChange, onBlur, value } }) => (
-					<TextInput
-						keyboardType='numeric'
-						placeholder='Age'
-						autoCapitalize='none'
-						style={{
-							borderColor: '#AAA',
-							borderRadius: 10,
-							borderWidth: 1,
-							// fontFamily: 'Aleo',
-							marginBottom: 10,
-							padding: 10,
-						}}
-						onBlur={onBlur}
-						onChangeText={onChange}
-						value={value}
-					/>
-				)}
-			/>
-			{errors.age && (
-				<View
-					style={{
-						marginBottom: 20,
-					}}
-				>
-					<BetterText
-						style={{
-							color: 'red',
-						}}
-					>
-						{errors.age.message}
 					</BetterText>
 				</View>
 			)}
