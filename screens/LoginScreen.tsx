@@ -33,6 +33,15 @@ export default function LoginScreen({ navigation }) {
 					>
 						Start everyday, better
 					</BetterText>
+
+					<BetterText
+						style={{
+							marginTop: 20,
+							textAlign: 'center',
+						}}
+					>
+						{process.env.API_URL}
+					</BetterText>
 				</View>
 				<BetterText
 					style={{

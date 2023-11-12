@@ -59,3 +59,37 @@ export const POST = (url: string, body: any, headers?: HeadersInit) => {
 export const PATCH = (url: string, body: any, headers?: HeadersInit) => {
 	return wrapper(url, 'PATCH', body, headers)
 }
+
+export const UPLOAD = async (url: string, body: any, headers?: HeadersInit) => {
+	const defaultHeaders = {
+		'Content-Type': 'multipart/form-data',
+	}
+
+	const { access_token } = store.getState().auth
+
+	if (access_token) {
+		defaultHeaders['Authorization'] = `Bearer ${access_token}`
+	}
+
+	const config: RequestInit = {
+		method: 'POST',
+		headers: {
+			...defaultHeaders,
+			...headers,
+		},
+		body,
+	}
+
+	try {
+		const response = await fetch(API_URL + url, config)
+		const json = await response.json()
+
+		if (!response.ok) {
+			throw new Error(json.message || 'An error occurred while fetching data')
+		}
+
+		return json
+	} catch (error) {
+		throw new Error(error.message || 'Network response was not ok')
+	}
+}

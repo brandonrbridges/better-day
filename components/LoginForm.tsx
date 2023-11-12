@@ -53,7 +53,19 @@ const LoginForm = () => {
 
 	const onSubmit = async (data) => {
 		try {
-			const { access_token } = await POST('/auth/login', data)
+			// const { access_token } = await POST('/auth/login', data)
+
+			const response = await fetch('http://localhost:3000/auth/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			})
+
+			const { access_token } = await response.json()
+
+			console.log(access_token)
 
 			setSuccess(true)
 

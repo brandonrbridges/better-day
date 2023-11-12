@@ -1,6 +1,5 @@
 // React & React Native
 import { useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 
 // Expo
 import * as Calendar from 'expo-calendar'
@@ -24,11 +23,8 @@ import { setEvents } from './redux/reducers/calendar.reducer'
 
 // Screens
 import CalendarScreen from './screens/CalendarScreen'
-import ForgotPasswordScreen from './screens/ForgotPasswordScreen'
 import HomeScreen from './screens/HomeScreen'
-import LoginScreen from './screens/LoginScreen'
 import ProfileScreen from './screens/ProfilePage'
-import RegisterScreen from './screens/RegisterScreen'
 
 // Utils
 import { GET } from './utils/fetch'
@@ -42,16 +38,6 @@ const Tab = createBottomTabNavigator()
 const AppContent = () => {
 	const auth = useAppSelector(({ auth }) => auth)
 	const dispatch = useAppDispatch()
-
-	const getTabBarVisiblility = (route) => {
-		const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
-
-		const hideOnScreens = ['Login', 'Register', 'ForgotPassword']
-
-		if (hideOnScreens.includes(routeName)) return false
-
-		return true
-	}
 
 	useEffect(() => {
 		;(async () => {

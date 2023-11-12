@@ -1,6 +1,6 @@
 // React & React Native
 import React from 'react'
-import { View } from 'react-native'
+import { Image, View } from 'react-native'
 
 // React Native Packages
 import { ScrollView } from 'react-native-gesture-handler'
@@ -17,7 +17,6 @@ import TodaysPrayer from '@/components/TodaysPrayer'
 
 export default function HomeScreen() {
 	const auth = useAppSelector(({ auth }) => auth)
-	const calendar = useAppSelector(({ calendar }) => calendar)
 
 	return (
 		<ScrollView
@@ -57,12 +56,28 @@ export default function HomeScreen() {
 					<View>
 						<View
 							style={{
+								alignItems: 'center',
 								backgroundColor: '#DDD',
 								borderRadius: 50,
 								height: 50,
+								justifyContent: 'center',
+								overflow: 'hidden',
+								position: 'relative',
 								width: 50,
 							}}
-						></View>
+						>
+							{auth.user.profile_picture && (
+								<Image
+									source={{ uri: auth.user.profile_picture }}
+									style={{
+										position: 'absolute',
+										height: '100%',
+										objectFit: 'cover',
+										width: '100%',
+									}}
+								/>
+							)}
+						</View>
 					</View>
 				</View>
 				<Overview />
