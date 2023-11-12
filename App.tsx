@@ -17,6 +17,7 @@ import { Provider } from 'react-redux'
 import { persistor, store } from './redux/configureStore'
 import { PersistGate } from 'redux-persist/integration/react'
 import { useAppSelector, useAppDispatch } from './redux/hooks'
+import { setEvents } from './redux/reducers/calendar.reducer'
 
 // Screens
 import CalendarScreen from './screens/CalendarScreen'
@@ -25,10 +26,11 @@ import LoginScreen from './screens/LoginScreen'
 import ProfileScreen from './screens/ProfilePage'
 import RegisterScreen from './screens/RegisterScreen'
 
+// Utils
+import { GET } from './utils/fetch'
+
 // Packages
 import dayjs from 'dayjs'
-import { setEvents } from './redux/reducers/calendar.reducer'
-import BetterText from './components/BetterText'
 
 const Tab = createBottomTabNavigator()
 
@@ -59,6 +61,18 @@ const AppContent = () => {
 			}
 		})()
 	}, [])
+
+	useEffect(() => {
+		const fetchStreak = async () => {
+			console.log('[Better Day] Getting streak..')
+
+			const streak = await GET(`/users/${auth.user?.id}/streak`)
+
+			console.log('[Better Day] Streak:', streak)
+		}
+
+		if (auth.user) fetchStreak()
+	})
 
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>

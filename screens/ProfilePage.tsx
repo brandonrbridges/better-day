@@ -68,7 +68,7 @@ export default function ProfileScreen() {
 								color: '#9C9E9C',
 							}}
 						>
-							Days in a Row: 320
+							Days in a Row: {auth.user.profile.consecutive_days}
 						</BetterText>
 					</View>
 				</View>

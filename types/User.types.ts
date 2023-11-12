@@ -11,6 +11,8 @@ export type Profile = {
 	religion?: UserReligion
 	bible_excerpts?: boolean
 	length_of_message?: number
+	last_login?: string
+	consecutive_days?: number
 }
 
 export enum UserReligion {

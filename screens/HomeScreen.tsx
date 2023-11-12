@@ -51,7 +51,7 @@ export default function HomeScreen() {
 								color: '#9C9E9C',
 							}}
 						>
-							Days in a row: 329
+							Days in a row: {auth.user.profile.consecutive_days}
 						</BetterText>
 					</View>
 					<View>
