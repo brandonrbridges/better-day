@@ -1,9 +1,12 @@
+import { AiResponse } from './Ai.types'
+
 export type User = {
 	id: string
 	email: string
 	first_name: string
 	last_name: string
 	profile: Profile
+	ai_responses: AiResponse[]
 }
 
 export type Profile = {

@@ -2,6 +2,7 @@
 import { UserReligion } from '@/types/User.types'
 
 // React & React Native
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 
@@ -45,7 +46,9 @@ const TodaysPrayer = () => {
 				events: events,
 			})
 
-			dispatch(setMessage(response.content))
+			console.log(response)
+
+			dispatch(setMessage(response))
 		} catch (error) {
 			console.error(error)
 		} finally {
@@ -54,7 +57,12 @@ const TodaysPrayer = () => {
 	}
 
 	useEffect(() => {
-		if (message.content) {
+		if (loading) return
+
+		const messageDate = dayjs(message.date)
+		const today = dayjs()
+
+		if (messageDate.isSame(today, 'day')) {
 			return
 		}
 
@@ -107,4 +115,4 @@ const TodaysPrayer = () => {
 	)
 }
 
-export default TodaysPrayer
+export default React.memo(TodaysPrayer)
